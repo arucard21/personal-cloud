@@ -13,3 +13,4 @@ spec:
   source:
     repoURL: https://nextcloud.github.io/helm/
     chart: nextcloud
+    targetRevision: 6.5.0
