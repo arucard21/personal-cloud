@@ -2,4 +2,4 @@ nextcloud:
   nextcloud:
     trustedDomains:
       - localhost
-      - nextcloud.default
+      - nextcloud.default:8080
