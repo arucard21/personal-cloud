@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: https://github.com/arucard21/personal-cloud.git
     path: nextcloud
-    targetRevision: 6.5.0
+    targetRevision: HEAD
   syncPolicy:
     automated:
       prune: true
