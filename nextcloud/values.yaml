@@ -1,3 +1,4 @@
 nextcloud:
   host: http://nextcloud.default:8080
-  trustedDomains: http://nextcloud.default:8080
+  trustedDomains:
+    - http://nextcloud.default:8080
