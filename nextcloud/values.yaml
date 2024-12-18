@@ -3,3 +3,4 @@ nextcloud:
     trustedDomains:
       - localhost
       - nextcloud.default:8080
+      - nextcloud.kube.home
