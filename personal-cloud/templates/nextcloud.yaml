@@ -11,8 +11,8 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    repoURL: https://nextcloud.github.io/helm/
-    chart: nextcloud
+    repoURL: https://github.com/arucard21/personal-cloud.git
+    path: nextcloud
     targetRevision: 6.5.0
   syncPolicy:
     automated:
