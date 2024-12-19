@@ -22,7 +22,7 @@ For setting up the cluster, these are the tools that are used. They need to be i
 ### Instructions
 Create the kubernetes cluster with `k3d`, called "personal-cloud".
 ```shell
-k3d cluster create personal-cloud
+k3d cluster create --no-lb personal-cloud
 ```
 The `kubectl` configuration will automatically be updated and its context switched to this new kubernetes cluster.
 
