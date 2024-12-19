@@ -4,7 +4,8 @@ metadata:
   name: argocd-route
 spec:
   http:
-    - match:
+    - name: argocd-route-match
+      match:
         paths:
           - /*
       backends:
