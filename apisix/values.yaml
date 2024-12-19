@@ -4,5 +4,7 @@ apisix:
   ingress-controller:
     enabled: true
     config:
+      kubernetes:
+        enableGatewayAPI: true
       apisix:
         serviceNamespace: apisix
