@@ -4,10 +4,9 @@ metadata:
   name: argocd-route
 spec:
   http:
-    - name: argocd-route-match
-      match:
+    - match:
         paths:
           - /*
       backends:
         - serviceName: argocd-server
-          servicePort: 80
+          servicePort: 443
