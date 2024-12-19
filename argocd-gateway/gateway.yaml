@@ -6,6 +6,8 @@ spec:
   http:
     - name: argocd-route-match
       match:
+        hosts:
+          - argocd.personal.cloud
         paths:
           - /*
       backends:
