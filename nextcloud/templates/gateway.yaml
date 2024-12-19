@@ -9,7 +9,7 @@ spec:
         hosts:
           - nextcloud.personal.cloud
         paths:
-          - /nextcloud
+          - /*
       backends:
         - serviceName: nextcloud
           servicePort: 8080
