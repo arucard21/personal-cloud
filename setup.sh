@@ -9,7 +9,7 @@
 #
 
 # Create kubernetes cluster (can be skipped if a kubernetes cluster is already available)
-k3d cluster create --no-lb personal-cloud
+k3d cluster create --no-lb --k3s-arg "--disable=traefik"  personal-cloud
 
 # Install telepresence in the cluster
 telepresence helm install
