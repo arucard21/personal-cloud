@@ -4,10 +4,12 @@ metadata:
   name: nextcloud-route
 spec:
   http:
-    - name: nextcloud-http-rule
+    - name: nextcloud-route-match
       match:
         hosts:
           - nextcloud.personal.cloud
+        paths:
+          - /*
       backends:
         - serviceName: nextcloud
           servicePort: 80
