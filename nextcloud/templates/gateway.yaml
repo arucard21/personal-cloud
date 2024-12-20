@@ -6,8 +6,8 @@ spec:
   http:
     - name: nextcloud-http-rule
       match:
-        hosts:
-          - nextcloud.personal.cloud
+        # hosts:
+        #   - nextcloud.personal.cloud
         paths:
           - /*
       backends:
