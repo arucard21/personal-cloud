@@ -4,3 +4,5 @@ nextcloud:
       - localhost
       - nextcloud.default:8080
       - nextcloud.kube.home
+  ingress:
+    enabled: true
