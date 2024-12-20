@@ -8,3 +8,9 @@ apisix:
         enableGatewayAPI: true
       apisix:
         serviceNamespace: apisix
+  apisix:
+    deployment:
+      mode: standalone
+      role: data_plane
+  etcd:
+    enabled: false
