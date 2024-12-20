@@ -1,7 +1,9 @@
 nextcloud:
   nextcloud:
+    host: http://nextcloud.personal.cloud
     trustedDomains:
       - nextcloud.default:8080
       - nextcloud.kube.home
+      - nextcloud.personal.cloud
   ingress:
     enabled: true
