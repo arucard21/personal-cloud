@@ -1,6 +1,6 @@
 nextcloud:
   nextcloud:
-    host: http://nextcloud.personal.cloud
+    host: nextcloud.personal.cloud
     trustedDomains:
       - nextcloud.default:8080
       - nextcloud.kube.home
