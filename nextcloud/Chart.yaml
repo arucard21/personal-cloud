@@ -16,7 +16,7 @@ type: application
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
 # This version should match the Nextcloud chart version
-version: 6.5.0
+version: 6.5.1
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -27,5 +27,5 @@ appVersion: "30.0.4"
 
 dependencies:
 - name: nextcloud
-  version: 6.5.0
+  version: 6.5.1
   repository: https://nextcloud.github.io/helm/

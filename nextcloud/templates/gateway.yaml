@@ -12,4 +12,4 @@ spec:
           - /*
       backends:
         - serviceName: nextcloud
-          servicePort: 8080
+          servicePort: 80
