@@ -3,3 +3,5 @@ nextcloud:
     trustedDomains:
       - nextcloud.default:8080
       - nextcloud.kube.home
+  ingress:
+    enabled: true
