@@ -12,7 +12,7 @@
 # Only creates a single server node and no agent nodes, for a simpler but non-high-availability configuration
 # Does not install the in-cluster ingress controller (traefik) on the server node
 # Disables the default loadbalancer that distributes traffic to multiple nodes since we only have one node
-k3d cluster create --no-lb personal-cloud
+k3d cluster create --no-lb --k3s-arg "--disable=traefik@server:0" personal-cloud
 
 # Install telepresence in the cluster
 telepresence helm install
