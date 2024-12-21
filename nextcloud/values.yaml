@@ -7,3 +7,5 @@ nextcloud:
       - nextcloud.personal.cloud
   ingress:
     enabled: true
+    className: apisix
+    servicePort: 8080
