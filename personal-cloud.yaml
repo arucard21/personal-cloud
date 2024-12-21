@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: https://github.com/arucard21/personal-cloud.git
     path: personal-cloud
-    targetRevision: HEAD
+    targetRevision: eb4c0411e39444510ef670f5c37e04f2996338e6
   syncPolicy:
     automated:
       prune: true
