@@ -10,4 +10,4 @@ apisix:
         enableGatewayAPI: true
       apisix:
         serviceNamespace: apisix
-      ingressPublishService: apisix/apisix-gateway
+      ingressPublishService: apisix/apisix-ingress-controller-apisix-gateway
