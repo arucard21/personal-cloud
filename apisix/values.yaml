@@ -5,7 +5,6 @@ apisix:
     enabled: true
     gateway:
       type: LoadBalancer
-      externalTrafficPolicy: Local
     config:
       kubernetes:
         enableGatewayAPI: true
