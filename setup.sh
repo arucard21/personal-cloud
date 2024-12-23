@@ -5,36 +5,34 @@
 # - docker and k3d (or an existing kubernetes cluster that is configured as default cluster for kubectl)
 # - kubectl
 # - helm
-# - telepresence (non-critical for cluster setup)
 # - base64 (non-critical for cluster setup)
 #
 
 # Create kubernetes cluster (can be skipped if a kubernetes cluster is already available)
-# Only creates a single server node and no agent nodes, for a simpler but non-high-availability configuration
-# Does not install the in-cluster ingress controller (traefik) on the server node
+#
+# Creates a single server node for a simple but non-high-availability configuration
 # Disables the default loadbalancer that distributes traffic to multiple nodes since we only have one node
 k3d cluster create --no-lb personal-cloud
 
-
 # Install Argo CD
 helm install argo-cd argo-cd/ --dependency-update --create-namespace --namespace argocd --wait --version 7.7.11
-
-# Install telepresence in the cluster
-telepresence helm install
-# Allow access to Argo CD UI by providing access to all internal services with telepresence
-telepresence connect
-
-# Wait until the initial password has been configured for Argo CD
-initialPassword=`kubectl get secret -n argocd argocd-initial-admin-secret -o "jsonpath={.data.password}" | base64 -d`
+# Add Argo CD as application in Argo CD so it can also be managed from there
+kubectl apply -f argo-cd.yaml --wait
 
 # Provide information needed to access the Argo CD UI
+initialPassword=`kubectl get secret -n argocd argocd-initial-admin-secret -o "jsonpath={.data.password}" | base64 -d`
+externalIp=`kubectl get services -n kube-system traefik -o "jsonpath={.status.loadBalancer.ingress[].ip}"`
 echo
-echo "Argo CD is now available at http://argocd-server.argocd"
+echo "Please ensure that the following host names resolve to the server IP address $externalIp"
+echo "\targocd.personal.cloud"
+echo "\tgrpc.argocd.personal.cloud (for use with argocd CLI)"
+echo
+echo "Argo CD should now be available at http://argocd.personal.cloud"
 echo "You can log in with username admin and password $initialPassword"
 
 
 # Provide instructions to install the personal-cloud app
 echo
-echo "You can install the personal cloud applications through the UI or with the following command"
+echo "You can install the personal cloud applications through the UI or with the following command in this repo"
 echo
 echo "kubectl apply -n argocd -f personal-cloud.yaml"
