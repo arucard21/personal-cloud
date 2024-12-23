@@ -35,10 +35,11 @@ These tools are not strictly required but the instructions here do assume that t
 	* To access the cluster, you need to configure a host name to connect to the external IP address of this cluster. You can find the external IP address with this command.
 
              kubectl get services -n kube-system traefik -o "jsonpath={.status.loadBalancer.ingress[].ip}"
-        If you only need local access, you can add this external IP address to your hosts file (e.g. `/etc/hosts` on Linux) to map it to a host name. It may look something like this.
+        You can add this external IP address to your hosts file (e.g. `/etc/hosts` on Linux) to map it to a host name. It may look something like this.
 
             192.168.1.1  argocd.private.cloud grpc.argocd.private.cloud nextcloud.private.cloud
-        The cluster is configured to use a dedicated hostname for each application, which is why multiple hostnames are defined in the example above.
+        The cluster is configured to use `personal.cloud` as hostname and defines a sub-domain for each application. This is why multiple hostnames are defined in the example above. This also means that it only works locally, where you can define this hostname for this external IP address.
+        If you want to change this hostname, you will need to change this in every `values.yaml` file. Since this needs to be stored in the repo to be picked up by the cluster, you'll need to fork this repo and update the hostnames in that forked repo. With a forked repo, you'll also need to update the git repo URLs in YAML files. Those should be the ones in the `personal-cloud` folder and in the root of this repo.
 1. The default username for the UI is "admin" and the default password is stored in base64-encoded form as a secret in the cluster and can be retrieved with the following command.
 
         kubectl get secret -n argocd argocd-initial-admin-secret -o "jsonpath={.data.password}" | base64 -d
