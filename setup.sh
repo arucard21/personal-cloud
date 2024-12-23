@@ -15,7 +15,7 @@
 k3d cluster create --no-lb personal-cloud
 
 # Install Argo CD
-helm install argo-cd argo-cd/ --dependency-update --create-namespace --namespace argocd --wait --version 7.7.11
+helm install argo-cd argo-cd/ --create-namespace --namespace argocd --version 7.7.11 --dependency-update --wait
 # Add Argo CD as application in Argo CD so it can also be managed from there
 kubectl apply -f argo-cd.yaml --wait
 
@@ -35,4 +35,4 @@ echo "You can log in with username admin and password $initialPassword"
 echo
 echo "You can install the personal cloud applications through the UI or with the following command in this repo"
 echo
-echo "kubectl apply -n argocd -f personal-cloud.yaml"
+echo "kubectl apply -f personal-cloud.yaml"
