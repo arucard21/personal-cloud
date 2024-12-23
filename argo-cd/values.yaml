@@ -1,0 +1,16 @@
+argo-cd:
+  fullnameOverride: "argocd"
+  global:
+    domain: argocd.personal.cloud
+
+  configs:
+    params:
+      server.insecure: true
+
+  server:
+    ingress:
+      enabled: true
+      hostname: argocd.personal.cloud
+    ingressGrpc:
+      enabled: true
+      hostname: grpc.argocd.personal.cloud

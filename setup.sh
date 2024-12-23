@@ -4,6 +4,7 @@
 #
 # - docker and k3d (or an existing kubernetes cluster that is configured as default cluster for kubectl)
 # - kubectl
+# - helm
 # - telepresence (non-critical for cluster setup)
 # - base64 (non-critical for cluster setup)
 #
@@ -14,23 +15,21 @@
 # Disables the default loadbalancer that distributes traffic to multiple nodes since we only have one node
 k3d cluster create --no-lb personal-cloud
 
-# Install telepresence in the cluster
-telepresence helm install
 
 # Install Argo CD
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+helm install argo-cd argo-cd/ --dependency-update --create-namespace --namespace argocd --wait --version 7.7.11
 
+# Install telepresence in the cluster
+telepresence helm install
 # Allow access to Argo CD UI by providing access to all internal services with telepresence
 telepresence connect
 
 # Wait until the initial password has been configured for Argo CD
-kubectl wait --for=create secret/argocd-initial-admin-secret -n argocd
 initialPassword=`kubectl get secret -n argocd argocd-initial-admin-secret -o "jsonpath={.data.password}" | base64 -d`
 
 # Provide information needed to access the Argo CD UI
 echo
-echo "Argo CD is now available at https://argocd-server.argocd"
+echo "Argo CD is now available at http://argocd-server.argocd"
 echo "You can log in with username admin and password $initialPassword"
 
 
