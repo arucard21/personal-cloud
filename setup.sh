@@ -12,7 +12,7 @@
 #
 # Creates a single server node for a simple but non-high-availability configuration
 # Disables the default loadbalancer that distributes traffic to multiple nodes since we only have one node
-k3d cluster create --no-lb personal-cloud
+k3d cluster create --no-lb --k3s-arg="--disable=traefik@server:0" personal-cloud
 
 # Install Argo CD
 helm install argo-cd argo-cd/ --create-namespace --namespace argocd --version 7.7.11 --dependency-update --wait
