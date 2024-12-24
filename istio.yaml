@@ -25,6 +25,3 @@ spec:
       kind: ValidatingWebhookConfiguration
       jqPathExpressions:
         - .webhooks.[].failurePolicy
-    - group: policy
-      kind: PodDisruptionBudget
-      name: istiod
