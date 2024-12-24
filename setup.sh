@@ -19,6 +19,12 @@ helm install argo-cd argo-cd/ --create-namespace --namespace argocd --version 7.
 # Add Argo CD as application in Argo CD so it can also be managed from there
 kubectl apply -f argo-cd.yaml --wait
 
+# Install Istio to ensure access to the applications from outside the cluster
+kubectl apply -f istio.yaml --wait
+
+# Install the personal cloud suite of applications
+kubectl apply -f personal-cloud.yaml --wait
+
 # Provide information needed to access the Argo CD UI
 initialPassword=`kubectl get secret -n argocd argocd-initial-admin-secret -o "jsonpath={.data.password}" | base64 -d`
 externalIp=`kubectl get services -n kube-system traefik -o "jsonpath={.status.loadBalancer.ingress[].ip}"`
@@ -26,6 +32,7 @@ echo
 echo "Please ensure that the following host names resolve to the server IP address $externalIp"
 echo "\targocd.personal.cloud"
 echo "\tgrpc.argocd.personal.cloud (for use with argocd CLI)"
+echo "\tnextcloud.personal.cloud"
 echo
 echo "Argo CD should now be available at http://argocd.personal.cloud"
 echo "You can log in with username admin and password $initialPassword"

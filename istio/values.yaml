@@ -5,3 +5,6 @@ istiod:
   meshConfig:
     ingressService: istio
     ingressSelector: istio
+kiali-server:
+  auth:
+    strategy: anonymous
