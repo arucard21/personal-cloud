@@ -3,6 +3,6 @@ kind: IngressClass
 metadata:
   annotations:
     ingressclass.kubernetes.io/is-default-class: true
-  name: apisix
+  name: apisix-default
 spec:
   controller: apisix.apache.org/apisix-ingress
