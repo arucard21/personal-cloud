@@ -18,10 +18,10 @@ k3d cluster create --no-lb --k3s-arg="--disable=traefik@server:0" personal-cloud
 helm install argo-cd argo-cd/ --create-namespace --namespace argocd --version 7.7.11 --dependency-update --wait --set "argo-cd.server.ingress.enabled=false" --set "argo-cd.server.ingressGrpc.enabled=false"
 
 # Install Istio to ensure access to Argo CD and other applications from outside the cluster
-kubectl apply -f istio.yaml
+kubectl apply -f istio.yaml --wait
 kubectl wait --for="jsonpath={.status.health.status}=Healthy" application/istio -n argocd --timeout=60s
 # Install Istio gateway separately since its installation will fail if Istio is not completely installed yet.
-kubectl apply -f istio-gateway.yaml
+kubectl apply -f istio-gateway.yaml --wait
 kubectl wait --for="jsonpath={.status.health.status}=Healthy" application/istio-gateway -n argocd --timeout=60s
 
 # Add Argo CD as application in Argo CD so it can also be managed from there. This also configures the ingress which should now work with Istio.
@@ -29,7 +29,9 @@ kubectl apply -f argo-cd.yaml --wait
 kubectl wait --for="jsonpath={.status.health.status}=Healthy" application/argo-cd -n argocd --timeout=60s
 
 # Install the personal cloud suite of applications
-kubectl apply -f personal-cloud.yaml
+kubectl apply -f personal-cloud.yaml --wait
+kubectl wait --for="jsonpath={.status.health.status}=Healthy" application/personal-cloud -n argocd --timeout=60s
+kubectl wait --for=create application/nextcloud -n argocd --timeout=60s
 kubectl wait --for="jsonpath={.status.health.status}=Healthy" application/nextcloud -n argocd --timeout=60s
 
 # Provide information needed to access the Argo CD UI
