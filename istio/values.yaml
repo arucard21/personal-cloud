@@ -1,3 +1,7 @@
-meshConfig:
-  ingressService: istio
-  ingressSelector: istio
+istiod:
+  global:
+    defaultPodDisruptionBudget:
+      enabled: false
+  meshConfig:
+    ingressService: istio
+    ingressSelector: istio
