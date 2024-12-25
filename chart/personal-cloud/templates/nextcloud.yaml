@@ -15,7 +15,7 @@ spec:
     path: nextcloud
     targetRevision: 6.5.1
     helm:
-      valuesObj:
+      valuesObject:
         nextcloud:
           host: {{ .Values.cluster.hostname.nextcloud }}
           trustedDomains:

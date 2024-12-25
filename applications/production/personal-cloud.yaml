@@ -15,7 +15,7 @@ spec:
     path: chart/personal-cloud
     targetRevision: HEAD
     helm:
-      valuesObj:
+      valuesObject:
         cluster:
           hostname:
             nextcloud: nextcloud.personal.cloud

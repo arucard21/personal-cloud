@@ -17,7 +17,7 @@ spec:
     path: argo-cd
     targetRevision: 7.7.1
     helm:
-      valuesObj:
+      valuesObject:
         fullnameOverride: "argocd"
         global:
           domain: {{ .Values.cluster.hostname.argocd }}

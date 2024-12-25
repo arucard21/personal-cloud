@@ -15,7 +15,7 @@ spec:
     path: chart/personal-cloud-infrastructure
     targetRevision: HEAD
     helm:
-      valuesObj:
+      valuesObject:
         cluster:
           hostname:
             argocd: argocd.personal.cloud
