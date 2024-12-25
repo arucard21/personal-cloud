@@ -32,6 +32,3 @@ dependencies:
 - name: istiod
   version: 1.24.2
   repository: https://istio-release.storage.googleapis.com/charts
-- name: kiali-server
-  version: 2.3.0
-  repository: https://kiali.org/helm-charts
