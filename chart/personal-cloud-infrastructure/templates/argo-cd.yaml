@@ -6,7 +6,6 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   annotations:
-    argocd.argoproj.io/sync-options: Force=true,Replace=true
     argocd.argoproj.io/sync-wave: "3"
 spec:
   destination:
@@ -14,20 +13,14 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    repoURL: https://argoproj.github.io/argo-helm
-    path: argo-cd
-    targetRevision: 7.7.1
+    repoURL: https://github.com/arucard21/personal-cloud.git
+    path: chart/argo-cd
+    targetRevision: HEAD
     helm:
       valuesObject:
-        fullnameOverride: "argocd"
-        global:
-          domain: {{ .Values.cluster.hostname.argocd }}
-        configs:
-          params:
-            server.insecure: true
-        server:
-          ingress:
-            enabled: true
+        argo-cd:
+          global:
+            domain: {{ .Values.cluster.hostname.argocd }}
   syncPolicy:
     automated:
       prune: true
