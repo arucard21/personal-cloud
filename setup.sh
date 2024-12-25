@@ -35,7 +35,7 @@ kubectl apply -f applications/production/personal-cloud.yaml --wait
 # Wait for each applicatoin to be installed
 kubectl wait --for="jsonpath={.status.health.status}=Healthy" application/personal-cloud -n argocd --timeout=60s
 kubectl wait --for=create application/nextcloud -n argocd --timeout=60s
-kubectl wait --for="jsonpath={.status.health.status}=Healthy" application/nextcloud -n argocd --timeout=60s
+kubectl wait --for="jsonpath={.status.health.status}=Healthy" application/nextcloud -n argocd --timeout=120s
 
 # Provide information needed to access the Argo CD UI
 initialPassword=`kubectl get secret -n argocd argocd-initial-admin-secret -o "jsonpath={.data.password}" | base64 -d`
