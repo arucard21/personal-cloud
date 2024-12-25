@@ -13,9 +13,9 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    repoURL: https://istio-release.storage.googleapis.com/charts
-    path: gateway
-    targetRevision: 1.24.2
+    repoURL: https://github.com/arucard21/personal-cloud.git
+    path: chart/istio-gateway
+    targetRevision: HEAD
   syncPolicy:
     automated:
       prune: true
