@@ -13,7 +13,7 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    repoURL: https://github.com/arucard21/personal-cloud.git
+    repoURL:  {{ .Values.spec.source.repoURL }}
     path: chart/argo-cd
     targetRevision: HEAD
     helm:

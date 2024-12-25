@@ -1,6 +1,8 @@
 spec:
   destination:
     server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/arucard21/personal-cloud.git
 cluster:
   hostname:
     argocd: argocd.personal.cloud
