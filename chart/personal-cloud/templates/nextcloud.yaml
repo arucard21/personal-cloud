@@ -11,9 +11,17 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    repoURL: https://github.com/arucard21/personal-cloud.git
+    repoURL: https://nextcloud.github.io/helm/
     path: nextcloud
-    targetRevision: HEAD
+    targetRevision: 6.5.1
+    helm:
+      valuesObj:
+        nextcloud:
+          host: {{ .Values.cluster.hostname.nextcloud }}
+          trustedDomains:
+            - {{ .Values.cluster.hostname.nextcloud }}
+        ingress:
+          enabled: true
   syncPolicy:
     automated:
       prune: true

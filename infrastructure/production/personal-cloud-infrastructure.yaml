@@ -1,19 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argo-cd
+  name: personal-cloud-infrastructure
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: argocd
+    namespace: default
     server: https://kubernetes.default.svc
   project: default
   source:
     repoURL: https://github.com/arucard21/personal-cloud.git
-    path: argo-cd
+    path: chart/personal-cloud-infrastructure
     targetRevision: HEAD
+    helm:
+      valuesObj:
+        cluster:
+          hostname:
+            argocd: argocd.personal.cloud
   syncPolicy:
     automated:
       prune: true

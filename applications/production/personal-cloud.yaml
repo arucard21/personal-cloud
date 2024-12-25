@@ -1,27 +1,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: istio
+  name: personal-cloud
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: istio-system
+    namespace: default
     server: https://kubernetes.default.svc
   project: default
   source:
     repoURL: https://github.com/arucard21/personal-cloud.git
-    path: istio
+    path: chart/personal-cloud
     targetRevision: HEAD
+    helm:
+      valuesObj:
+        cluster:
+          hostname:
+            nextcloud: nextcloud.personal.cloud
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-  ignoreDifferences:
-    - group: admissionregistration.k8s.io
-      kind: ValidatingWebhookConfiguration
-      jqPathExpressions:
-        - .webhooks.[].failurePolicy

@@ -1,20 +1,29 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: istio-gateway
+  name: istio
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   destination:
     namespace: istio-system
-    server: https://kubernetes.default.svc
+    server: {{ .Values.spec.destination.server }}
   project: default
   source:
     repoURL: https://github.com/arucard21/personal-cloud.git
-    path: istio-gateway
+    path: chart/istio
     targetRevision: HEAD
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+  ignoreDifferences:
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+      jqPathExpressions:
+        - .webhooks.[].failurePolicy

@@ -14,22 +14,27 @@
 # Disables the default loadbalancer that distributes traffic to multiple nodes since we only have one node
 k3d cluster create --no-lb --k3s-arg="--disable=traefik@server:0" personal-cloud
 
-# Install Argo CD without ingress
-helm install argo-cd argo-cd/ --create-namespace --namespace argocd --version 7.7.11 --dependency-update --wait --set "argo-cd.server.ingress.enabled=false" --set "argo-cd.server.ingressGrpc.enabled=false"
+# Perform initial installation of Argo CD without ingress
+helm repo add argo https://argoproj.github.io/argo-helm
+helm repo update
+helm install argo-cd argo/argo-cd --create-namespace --namespace argocd --version 7.7.1 --set "fullnameOverride=argocd" --wait
 
-# Install Istio to ensure access to Argo CD and other applications from outside the cluster
-kubectl apply -f istio.yaml --wait
+# Install infrastructure
+kubectl apply -f  infrastructure/production/personal-cloud-infrastructure --wait
+
+# Wait for each part of the infrastructure to be installed
+kubectl wait --for="jsonpath={.status.health.status}=Healthy" application/personal-cloud-infrastructure -n argocd --timeout=60s
+kubectl wait --for=create application/istio -n argocd --timeout=60s
 kubectl wait --for="jsonpath={.status.health.status}=Healthy" application/istio -n argocd --timeout=60s
-# Install Istio gateway separately since its installation will fail if Istio is not completely installed yet.
-kubectl apply -f istio-gateway.yaml --wait
+kubectl wait --for=create application/istio-gateway -n argocd --timeout=60s
 kubectl wait --for="jsonpath={.status.health.status}=Healthy" application/istio-gateway -n argocd --timeout=60s
-
-# Add Argo CD as application in Argo CD so it can also be managed from there. This also configures the ingress which should now work with Istio.
-kubectl apply -f argo-cd.yaml --wait
+kubectl wait --for=create application/argo-cd -n argocd --timeout=60s
 kubectl wait --for="jsonpath={.status.health.status}=Healthy" application/argo-cd -n argocd --timeout=60s
 
 # Install the personal cloud suite of applications
-kubectl apply -f personal-cloud.yaml --wait
+kubectl apply -f applications/production/personal-cloud.yaml --wait
+
+# Wait for each applicatoin to be installed
 kubectl wait --for="jsonpath={.status.health.status}=Healthy" application/personal-cloud -n argocd --timeout=60s
 kubectl wait --for=create application/nextcloud -n argocd --timeout=60s
 kubectl wait --for="jsonpath={.status.health.status}=Healthy" application/nextcloud -n argocd --timeout=60s

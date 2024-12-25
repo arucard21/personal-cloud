@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-cd
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  destination:
+    namespace: argocd
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    path: argo-cd
+    targetRevision: 7.7.1
+    helm:
+      valuesObj:
+        fullnameOverride: "argocd"
+        global:
+          domain: {{ .Values.cluster.hostname.argocd }}
+        configs:
+          params:
+            server.insecure: true
+        server:
+          ingress:
+            enabled: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
