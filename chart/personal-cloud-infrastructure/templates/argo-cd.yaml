@@ -6,6 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   annotations:
+    argocd.argoproj.io/sync-options: Force=true,Replace=true
     argocd.argoproj.io/sync-wave: "3"
 spec:
   destination:
@@ -31,6 +32,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - Replace=true
-      - Force=true

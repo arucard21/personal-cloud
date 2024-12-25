@@ -17,7 +17,8 @@ k3d cluster create --no-lb --k3s-arg="--disable=traefik@server:0" personal-cloud
 # Perform initial installation of Argo CD without ingress
 helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update
-helm install argo-cd argo/argo-cd --create-namespace --namespace argocd --version 7.7.1 --set "fullnameOverride=argocd" --set "config.params.server\.insecure=true" --wait
+helm install argo-cd argo/argo-cd --create-namespace --namespace argocd --version 7.7.1 --wait
+helm repo remove argo
 
 # Install infrastructure
 kubectl apply -f  infrastructure/production/personal-cloud-infrastructure.yaml --wait
