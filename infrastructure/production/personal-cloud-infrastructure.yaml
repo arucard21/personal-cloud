@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/arucard21/personal-cloud.git
-    path: chart/personal-cloud-infrastructure
+    path: charts/personal-cloud-infrastructure
     targetRevision: HEAD
     helm:
       valuesObject:
