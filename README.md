@@ -7,6 +7,25 @@ This repo provides a GitOps approach for self-hosting these applications by bein
 ## Installed cloud applications
 - [Nextcloud](https://nextcloud.com/)
 
+## Repo structure
+```
+├── applications
+│   └── production
+│       └── personal-cloud.yaml
+├── charts
+│   ├── <contains Helm charts that are created or customized for this cluster>
+├── infrastructure
+│   └── production
+│       └── personal-cloud-infrastructure.yaml
+```
+This GitOps repo is structured with three main folders at the root, `applications`, `charts`, and `infrastructure`. This is based on best practices for the GitOps repo structure. This includes separating the normal applications from the infrastructure, and the best practice is evey to keep them in separate repos. Though that is excessive for a home setup. The Helm charts are also kept in one place to make them easier to maintain. Both the `application` and `infrastructure` folder represent the state their own part of the cluster.
+
+The `charts` folder contains all Helm charts that could not be used directly from a Helm repo. This is usually because it was created for this cluster or needed to be customized beyond what can be done through its values. The `argo-cd` chart is an exception since it is included with only its values modified. This is because it needs to be installed both manually and again with Argo CD and needs those values to remain consistent.
+
+The `infrastructure` and `applications` folders each contain a separate folder for each environment. The cluster only has a `production` environment here but you could add a another folder for staging or testing here. If you have multiple Kubernetes clusters, you can also add a hierarchical layer here for the cluster, e.g. `applications/cluster1/production`. 
+
+The `production` folder, and any other folder for an environment, contains an Argo CD Application resource defined according to the [app-of-apps pattern](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/#app-of-apps-pattern), `personal-cloud.yaml` and `personal-cloud-infrastructure.yaml`. This is a single application that groups together multiple other applications. From the `infrastructure` folder, this defines all applications needed as infrastructure. These will ensure that normal applications can be used correctly. Inside the `applications` folder then, the `production` folder defines an app-of-apps for all normal applications that should be installed for the personal cloud.
+
 ## Requirements
 - a Kubernetes cluster
 - A hostname for the cluster
