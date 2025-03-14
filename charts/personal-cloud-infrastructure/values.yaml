@@ -2,7 +2,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
   source:
-    repoURL: https://github.com/arucard21/personal-cloud.git
+    repoURL: http://gitea-http.git:3000/cloudadmin/gitops-charts.git
 cluster:
   hostname:
     argocd: argocd.personal.cloud

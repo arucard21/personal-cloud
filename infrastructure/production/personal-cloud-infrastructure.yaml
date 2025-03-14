@@ -11,14 +11,14 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://github.com/arucard21/personal-cloud.git
-    path: charts/personal-cloud-infrastructure
+    repoURL: http://cloudadmin:personalcloudadmin@gitea-http.git:3000/cloudadmin/gitops-charts.git
+    path: personal-cloud-infrastructure
     targetRevision: HEAD
     helm:
       valuesObject:
         spec:
           source:
-            repoURL: https://github.com/arucard21/personal-cloud.git
+            repoURL: http://cloudadmin:personalcloudadmin@gitea-http.git:3000/cloudadmin/gitops-charts.git
         cluster:
           hostname:
             argocd: argocd.personal.cloud

@@ -2,6 +2,9 @@ argo-cd:
   fullnameOverride: "argocd"
   global:
     domain: argocd.personal.cloud
+  server:
+    ingress:
+      enabled: true
   configs:
     params:
       server.insecure: true
@@ -19,6 +22,9 @@ argo-cd:
           end
         end
         return hs
-  server:
-    ingress:
-      enabled: true
+      resource.customizations.health.networking.k8s.io_Ingress: |
+        hs = {}
+        if obj.status ~= nil then
+          hs.status = "Healthy"
+        end
+        return hs

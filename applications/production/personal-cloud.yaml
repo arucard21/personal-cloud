@@ -11,8 +11,8 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://github.com/arucard21/personal-cloud.git
-    path: charts/personal-cloud
+    repoURL: http://cloudadmin:personalcloudadmin@gitea-http.git:3000/cloudadmin/gitops-charts.git
+    path: personal-cloud
     targetRevision: HEAD
     helm:
       valuesObject:
